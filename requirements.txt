@@ -8,3 +8,4 @@ SQLAlchemy
 gunicorn
 python-dotenv
 authlib
+requests
