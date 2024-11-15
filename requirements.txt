@@ -7,3 +7,4 @@ flask_sqlalchemy
 SQLAlchemy
 gunicorn
 python-dotenv
+authlib
