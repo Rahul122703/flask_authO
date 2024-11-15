@@ -1,0 +1,9 @@
+Flask_Login
+Flask_WTF
+WTForms
+Werkzeug
+Flask
+flask_sqlalchemy
+SQLAlchemy
+gunicorn
+python-dotenv
