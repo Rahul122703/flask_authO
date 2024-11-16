@@ -132,10 +132,12 @@
                   aria-haspopup="true">
                   <span class="absolute -inset-1.5"></span>
                   <span class="sr-only">Open user menu</span>
-                  <img
+                 <img
                     class="size-8 rounded-full"
-                    src="{{current_user.icon}}"
-                    alt="" />
+                    src="{{current_user.icon
+                    }}"
+                    alt="User Icon"
+                />   
                 </button>
               </div>
 
@@ -223,5 +225,6 @@
 
     {% block content %} {% endblock %}
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/formValidation.js') }}"></script>
   </body>
 </html>

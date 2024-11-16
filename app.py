@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, redirect,session
+from flask import Flask, render_template, request, url_for, redirect,session,jsonify
 
 from flask_login import LoginManager, UserMixin, login_user, logout_user,current_user
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -61,7 +61,7 @@ class User(UserMixin, database.Model):
     username = mapped_column(String)
     email = mapped_column(String)
     password = mapped_column(String, nullable=True)
-    icon = mapped_column(String, nullable=True,default='./static/assets/anynomous.jpg')
+    icon = mapped_column(String, nullable=True,default='../static/assets/anynomous.jpg')
 
 # Initialize the Database
 with app.app_context():
@@ -84,8 +84,8 @@ def index():
 def register():
     global current_user
     if request.method == "POST":
-        username = request.form.get("username")
-        email = request.form.get("email")
+        username = request.form.get("username").lower()
+        email = request.form.get("email").lower()
         password = generate_password_hash(request.form.get('password'), method='pbkdf2:sha256', salt_length=8)
         
         new_user = User(username=username, email=email, password=password)
@@ -97,12 +97,27 @@ def register():
         return redirect(url_for("index"))
     return render_template("register.html")
 
+@app.route('/get_json_data_user', methods=['GET'])
+def get_data():
+    print("--------------get_data route is running---------")
+    
+    users = User.query.all()
+    data = [
+        {
+            'id': user.id,
+            'username': user.username,
+            'email': user.email  
+        } for user in users
+    ]
+    
+    return jsonify(data)
+
 @app.route("/login", methods=['POST', 'GET'])
 def login():
     global current_user
     if request.method == "POST":
-        email_input = request.form.get("email")
-        password_input_data = request.form.get("password")
+        email_input = request.form.get("email").lower()
+        password_input_data = request.form.get("password").lower()
         selected_user = database.session.execute(database.select(User).filter(User.email == email_input)).scalar()
         
         if selected_user: 
@@ -154,11 +169,11 @@ def authorize_google():
         current_user = user
         session['username'] = user.username
     else:  
-        new_user = User(username = given_name,email = email , icon = google_profile_picture)
+        new_user = User(username = given_name,email = email , icon = google_profile_picture,password = None)
         database.session.add(new_user)
         database.session.commit()
         current_user = new_user
-        login_user(user)
+        login_user(new_user)
     session['oauth_token'] = token
     return redirect(url_for("index"))
     

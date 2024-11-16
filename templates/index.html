@@ -135,7 +135,11 @@ content %}
     <h2 class="text-2xl font-semibold text-center mb-6">Register</h2>
 
     <!-- Form -->
-    <form method="POST" action="{{ url_for('register') }}">
+    <form
+      method="POST"
+      action="{{ url_for('register') }}"
+      id="registrationForm">
+      <!-- 123 -->
       <div class="mb-4">
         <input
           type="text"
@@ -143,6 +147,11 @@ content %}
           name="username"
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter your username" />
+      </div>
+      <div
+        id="usernamewarningbox"
+        class="max-w-xs w-full p-4 bg-red-200 text-red-800 border-l-4 border-red-500 rounded">
+        <p>username warning message</p>
       </div>
       <div class="mb-4">
         <input
@@ -152,6 +161,11 @@ content %}
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter your email" />
       </div>
+      <div
+        id="emailwarningbox"
+        class="max-w-xs w-full p-4 bg-red-200 text-red-800 border-l-4 border-red-500 rounded">
+        <p>email warning message.</p>
+      </div>
       <div class="mb-6">
         <input
           type="password"
@@ -160,7 +174,11 @@ content %}
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter your password" />
       </div>
-
+      <div
+        id="passwordwarningbox"
+        class="max-w-xs w-full p-4 bg-red-200 text-red-800 border-l-4 border-red-500 rounded">
+        <p>password warning message.</p>
+      </div>
       <!-- Login with Google -->
       <a href="{{ url_for('login_google') }}">
         <button
@@ -177,6 +195,7 @@ content %}
 
       <!-- Submit Button -->
       <button
+        id = "registerbtn"
         type="submit"
         class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
         Register
@@ -213,10 +232,16 @@ content %}
 
     <!-- Form -->
     <form method="POST" action="{{ url_for('login') }}">
+      <!-- 124 -->
+      <div
+        id="loginbox"
+        class="max-w-xs w-full p-4 bg-red-200 text-red-800 border-l-4 border-red-500 rounded">
+        <p>This is a simple warning message.</p>
+      </div>
       <div class="mb-4">
         <input
           type="text"
-          id="email"
+          id="login_email"
           name="email"
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter your email" />
@@ -224,7 +249,7 @@ content %}
       <div class="mb-6">
         <input
           type="password"
-          id="password"
+          id="login_password"
           name="password"
           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"
           placeholder="Enter your password" />
