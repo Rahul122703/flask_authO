@@ -33,7 +33,7 @@ database = SQLAlchemy(model_class=Base)
 database.init_app(app)
 
 
-#External Authorization 
+#External Authorization 11
 oauth = OAuth(app)
 google = oauth.register(
     name='google',
@@ -125,7 +125,7 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-#login for google 
+#login for google  22
 @app.route('/login/google')
 def login_google():
     try:
@@ -150,16 +150,14 @@ def authorize_google():
     
     user = User.query.filter_by(email = email).first()  
     if user:
-        login_user(user)
-        current_user = user
+        database.session.commit()
         session['username'] = user.username
-    else:  
+        session['oauth_token'] = token
+    if not user:  #registration code pending
         new_user = User(username = given_name,email = email , icon = google_profile_picture)
         database.session.add(new_user)
         database.session.commit()
-        current_user = new_user
-        login_user(user)
-    session['oauth_token'] = token
+    current_user = user
     return redirect(url_for("index"))
     
 
