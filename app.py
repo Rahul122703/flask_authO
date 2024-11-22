@@ -4,7 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user,current
 from werkzeug.security import generate_password_hash, check_password_hash
 
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy.orm import DeclarativeBase, mapped_column
 from sqlalchemy import Integer, String
 
 from authlib.integrations.flask_client import OAuth
